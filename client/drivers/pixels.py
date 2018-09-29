@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import time
 import threading
 try:
@@ -10,12 +10,12 @@ except ImportError:
 class Pixels:
     def __init__(self, gpio_mode, pin):
         self.led_pin = pin
-        GPIO.setwarnings(False)
-        if gpio_mode == 'bcm':
-            GPIO.setmode(GPIO.BCM)
-        else:
-            GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(pin, GPIO.OUT)
+        # GPIO.setwarnings(False)
+        # if gpio_mode == 'bcm':
+        #     GPIO.setmode(GPIO.BCM)
+        # else:
+        #     GPIO.setmode(GPIO.BOARD)
+        # GPIO.setup(pin, GPIO.OUT)
 
         self.next = threading.Event()
         self.queue = Queue.Queue()
@@ -52,31 +52,34 @@ class Pixels:
             func()
 
     def _wakeup(self, direction=0):
-        GPIO.output(self.led_pin, GPIO.HIGH)
+        pass
+        # GPIO.output(self.led_pin, GPIO.HIGH)
 
     def _listen(self):
-        GPIO.output(self.led_pin, GPIO.HIGH)
+        pass
+        # GPIO.output(self.led_pin, GPIO.HIGH)
 
     def _think(self):
         self.next.clear()
         while not self.next.is_set():
-            GPIO.output(self.led_pin, GPIO.HIGH)
+            # GPIO.output(self.led_pin, GPIO.HIGH)
             time.sleep(0.3)
-            GPIO.output(self.led_pin, GPIO.LOW)
+            # GPIO.output(self.led_pin, GPIO.LOW)
             time.sleep(0.3)
 
     def _speak(self):
         self.next.clear()
         while not self.next.is_set():
-            GPIO.output(self.led_pin, GPIO.HIGH)
+            # GPIO.output(self.led_pin, GPIO.HIGH)
             time.sleep(0.3)
-            GPIO.output(self.led_pin, GPIO.LOW)
+            # GPIO.output(self.led_pin, GPIO.LOW)
             time.sleep(0.3)
 
         self._off()
 
     def _off(self):
-        GPIO.output(self.led_pin, GPIO.LOW)
+        pass
+        # GPIO.output(self.led_pin, GPIO.LOW)
 
 
 if __name__ == '__main__':
